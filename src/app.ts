@@ -4,16 +4,12 @@ import bodyParser from 'body-parser';
 import rateLimit from 'express-rate-limit';
 import path from 'path';
 
-
-// import userRoutes from './routes/user.routes';
-// import afiliateRoutes from './routes/afiliate.routes';
-
-
-
 const app = express();
 
-
-
+//imnporting routes
+import userRouter from './routes/user.router';
+import eventRouter from './routes/event.router';
+import ticketRouter from './routes/ticket.router';
 
 app.use(
   cors({
@@ -31,12 +27,13 @@ const limiter = rateLimit({
 });
 // app.use(limiter);
 
-app.use(bodyParser.json({ limit: "1mb" })); // limit payload size
+app.use(bodyParser.json({ limit: "1mb" })); 
 app.use(bodyParser.urlencoded({ extended: true, limit: "1mb" }));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-
-//  app.use("/api/v1/user/", userRoutes);
-//  app.use("/api/v1/afiliate/",afiliateRoutes);
+app.use('/api/v1/user',userRouter);
+app.use('/api/v1/event',eventRouter);
+app.use('/api/v1/ticket',ticketRouter);
 
 app.get('/health', (req, res) => res.status(200).json({ status: 'ok' }));
 
