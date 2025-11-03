@@ -9,7 +9,7 @@ import userModel from '../models/user.model';
 
 
 
-export const bookTicketService = async(eventId:string,userId:string) => {
+export const bookTicketService = async(eventId:string,userId:string,ticketsQuantity:number) => {
     try {
         const fetchEvent = await eventModel.findOne({eventId});
         const fetchuser = await userModel.findOne({userId});
@@ -20,6 +20,10 @@ export const bookTicketService = async(eventId:string,userId:string) => {
         if(!fetchuser){
             return {message:'user doesnot exist'};
         }
+        if(ticketsQuantity>fetchEvent.totalTickets){
+            return {message:'invalid ticket quantity'};
+        }
+        const totalTicketPrice = ticketsQuantity * fetchEvent.ticketPrice
         let ticketData = {
             eventId,
             userId,
@@ -27,9 +31,10 @@ export const bookTicketService = async(eventId:string,userId:string) => {
             venue:fetchEvent.venue,
             startTime:fetchEvent.startTime,
             endTime:fetchEvent.endTime,
-            price:fetchEvent.ticketPrice,
+            price:totalTicketPrice,
             userName:fetchuser.userName,
-            userEmail:fetchuser.userEmail
+            userEmail:fetchuser.userEmail,
+            ticketsQuantity
         }
 
         const generateUserTicket = await ticketModel.create(ticketData);
@@ -38,6 +43,7 @@ export const bookTicketService = async(eventId:string,userId:string) => {
           name: fetchuser.userName,
           email: fetchuser.userEmail,
           phone: fetchuser.userMobileNumber,
+          ticketQuantity:ticketsQuantity
         };
         const updateEvent = await addAttendee(eventId, attendeeData );
         return {generateUserTicket,updateEvent};
@@ -51,12 +57,15 @@ export const bookTicketService = async(eventId:string,userId:string) => {
 
 const addAttendee = async (
   eventId: string,
-  attendee: { name: string; email: string; phone: number }
+  attendee: { name: string; email: string; phone: number ,ticketQuantity:number}
 ) => {
   try {
     const updatedEvent = await eventModel.findOneAndUpdate(
       { eventId },
-      { $addToSet: { attendees: attendee } }, 
+      { 
+        $addToSet: { attendees: attendee },
+        $inc: { totalTickets: -attendee.ticketQuantity }
+      }, 
       { new: true }
     );
 

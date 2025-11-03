@@ -7,8 +7,8 @@ import { bookTicketService } from "../services/ticket.services";
 
 export const bookTicketControllers = async(req:Request,res:Response) => {
     try {
-        const {eventId,userId} = req.body;
-        const tickets = await bookTicketService(eventId,userId);
+        const {eventId,userId,ticketsQuantity} = req.body;
+        const tickets = await bookTicketService(eventId,userId,ticketsQuantity);
 
         res.status(201).json({
             tickets

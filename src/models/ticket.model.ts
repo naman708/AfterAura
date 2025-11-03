@@ -12,6 +12,7 @@ export interface ITicket extends Document {
   price: number;
   userName: string;
   userEmail: string;
+  ticketsQuantity:number;
 }
 
 const ticketSchema: Schema = new Schema(
@@ -26,6 +27,7 @@ const ticketSchema: Schema = new Schema(
     price: { type: Number, required: true },
     userName: { type: String, required: true },
     userEmail: { type: String, required: true },
+    ticketsQuantity:{type:Number,required:true}
   },
   {
     timestamps: true, // Automatically adds createdAt & updatedAt
