@@ -22,6 +22,7 @@ export interface IEvent extends Document {
   eventStatus: string;
   eventName:string;
   city:string;
+  categories: string[];
 }
 
 export enum EVENT_STATUS {
@@ -66,6 +67,11 @@ const eventSchema: Schema = new Schema(
     },
     eventName:{type:String,required:true},
     city:{type:String,required:true},
+       categories: {
+      type: [String],
+      required: true,
+      index: true, // adds index for faster search
+    },
   },
   {
     timestamps: true, 

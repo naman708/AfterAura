@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import path from 'path';
 
 //importing services
-import { createUserService } from "../services/user.services";
+import { createUserService,loginUserService } from "../services/user.services";
 
 
 export const uploadImage = (req: Request, res: Response) => {
@@ -35,3 +35,18 @@ export const createUserController = async(req: Request, res:Response) =>{
     }
 }
 
+export const loginUserController = async(req:Request,res:Response) => {
+    try {
+        const data = req.body;
+
+        const loginUserData = await loginUserService(data);
+
+        res.status(200).json({
+            loginUserDetails : loginUserData
+        })
+    } catch (error:any) {
+         res.status(400).json({
+            message: error.message
+        })
+    }
+}

@@ -14,6 +14,7 @@ export interface IUser extends Document {
   password: string;
   userId: string;
   organiserId: string;
+  isVerified:boolean
 }
 
 const userSchema: Schema = new Schema(
@@ -30,7 +31,7 @@ const userSchema: Schema = new Schema(
     organiserId: { type: String, default: uuidv4 },
     OrganiserUPI: { type: String },
     OrganiserQR: { type: String },
-
+    isVerified:{type:Boolean,default:false},
     // KYC Documents
     kycDocumentFront: { type: String },
     kycDocumentBack: { type: String },

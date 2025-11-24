@@ -10,6 +10,7 @@ const app = express();
 import userRouter from './routes/user.router';
 import eventRouter from './routes/event.router';
 import ticketRouter from './routes/ticket.router';
+import adminRouter from './routes/admin.router';
 
 app.use(
   cors({
@@ -34,6 +35,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/api/v1/user',userRouter);
 app.use('/api/v1/event',eventRouter);
 app.use('/api/v1/ticket',ticketRouter);
+app.use('/api/v1/admin',adminRouter);
 
 app.get('/health', (req, res) => res.status(200).json({ status: 'ok' }));
 
