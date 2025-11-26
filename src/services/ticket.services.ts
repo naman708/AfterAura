@@ -7,6 +7,8 @@ import ticketModel from '../models/ticket.model';
 import eventModel from '../models/event.model';
 import userModel from '../models/user.model';
 
+//importing email service
+import { emailService } from './emailService/email.service';
 
 
 export const bookTicketService = async(eventId:string,userId:string,ticketsQuantity:number) => {
@@ -46,8 +48,15 @@ export const bookTicketService = async(eventId:string,userId:string,ticketsQuant
           ticketQuantity:ticketsQuantity
         };
         const updateEvent = await addAttendee(eventId, attendeeData );
+        emailService.sendTicketBooking(fetchuser.userEmail,{
+             name:  fetchuser.userName,
+             event: fetchEvent.eventName,
+             date: fetchEvent.date as unknown as string,
+             bookingId: generateUserTicket.ticketId
+        })
         return {generateUserTicket,updateEvent};
 
+      
     } catch (error:any) {
          throw new Error(`Error bookTicketService : ${error.message}`);
     }

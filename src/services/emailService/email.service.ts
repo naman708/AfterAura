@@ -12,18 +12,18 @@ export interface LoginOtpData {
 
 export interface ForgotPasswordData {
   name: string;
-  resetLink: string;
+  otp: string;
 }
 
 export interface RegistrationData {
   name: string;
+  loginLink:string;
 }
 
 export interface TicketBookingData {
   name: string;
   event: string;
   date: string;
-  seat: string;
   bookingId: string;
 }
 
@@ -37,7 +37,7 @@ class EmailService {
     const html = renderTemplate("loginOtp", data);
 
     await transporter.sendMail({
-      from: "no-reply@yourapp.com",
+      from: "afteraura11@gmail.com",
       to,
       subject: "Your Login OTP",
       html,
@@ -48,7 +48,7 @@ class EmailService {
     const html = renderTemplate("forgotPassword", data);
 
     await transporter.sendMail({
-      from: "no-reply@yourapp.com",
+      from: "afteraura11@gmail.com",
       to,
       subject: "Reset Your Password",
       html,
@@ -56,24 +56,40 @@ class EmailService {
   }
 
   async sendRegistrationEmail(to: string, data: RegistrationData): Promise<void> {
+    console.log("===== EmailService ==== sendRegistrationEmail ===== to:", to)
     const html = renderTemplate("registerUser", data);
 
-    await transporter.sendMail({
-      from: "welcome@yourapp.com",
+    const response =await transporter.sendMail({
+      from: "afteraura11@gmail.com",
       to,
       subject: "Welcome to Our Platform",
       html,
+       attachments: [
+    {
+      filename: "bg.png",
+      path: "/home/naman-pawar/AfterAura/src/services/emailService/attachments/bg.png", 
+      cid: "hauntedbg"
+    }
+  ]
     });
+    console.log("========= EmailService ===== sendRegistrationEmail ===== response:", response)
   }
 
   async sendTicketBooking(to: string, data: TicketBookingData): Promise<void> {
     const html = renderTemplate("ticketBook", data);
 
     await transporter.sendMail({
-      from: "tickets@yourapp.com",
+      from: "afteraura11@gmail.com",
       to,
       subject: "Ticket Booking Confirmation",
       html,
+       attachments: [
+    {
+      filename: "bg.png",
+      path: "/home/naman-pawar/AfterAura/src/services/emailService/attachments/bg.png", 
+      cid: "partybg"
+    }
+  ]
     });
   }
 }

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import path from 'path';
 
 //importing services
-import { createUserService,loginUserService } from "../services/user.services";
+import { createUserService,loginUserService,forgotPassword,changePassword } from "../services/user.services";
 
 
 export const uploadImage = (req: Request, res: Response) => {
@@ -46,6 +46,37 @@ export const loginUserController = async(req:Request,res:Response) => {
         })
     } catch (error:any) {
          res.status(400).json({
+            message: error.message
+        })
+    }
+}
+
+export const forgotPasswordController = async(req:Request,res:Response) => {
+    try {
+        const {userEmail} = req.body;
+
+        const forgotPasswordData = await forgotPassword(userEmail);
+
+        res.status(200).json({
+            forgotPasswordDetails :forgotPasswordData
+        })
+    } catch (error:any) {
+         res.status(400).json({
+            message: error.message
+        })
+    }
+}
+
+export const changePasswordController = async(req:Request,res:Response) => {
+    try {
+        const {password,userId}=req.body
+        const changePasswordData =  await changePassword(password,userId);
+
+        res.status(200).json({
+            changePasswordDetails : changePasswordData
+        })
+    } catch (error:any) {
+          res.status(400).json({
             message: error.message
         })
     }

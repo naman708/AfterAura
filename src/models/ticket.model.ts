@@ -7,8 +7,8 @@ export interface ITicket extends Document {
   userId: string;
   eventName: string;
   venue: string;
-  startTime: Date;
-  endTime: Date;
+  startTime: string;
+  endTime: string;
   price: number;
   userName: string;
   userEmail: string;
@@ -22,8 +22,8 @@ const ticketSchema: Schema = new Schema(
     userId: { type: String, required: true, ref: "UserTable" },
     eventName: { type: String, required: true },
     venue: { type: String, required: true },
-    startTime: { type: Date, required: true },
-    endTime: { type: Date, required: true },
+    startTime: { type: String, required: true },
+    endTime: { type: String, required: true },
     price: { type: Number, required: true },
     userName: { type: String, required: true },
     userEmail: { type: String, required: true },

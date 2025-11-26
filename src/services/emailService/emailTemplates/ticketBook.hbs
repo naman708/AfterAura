@@ -1,16 +1,100 @@
 <!DOCTYPE html>
 <html>
-<body style="font-family:Arial;">
-  <h2>🎟 Ticket Booking Confirmation</h2>
-  <p>Hello {{name}},</p>
-  <p>Your ticket has been successfully booked.</p>
+  <body style="margin:0; padding:0; font-family:'Arial',sans-serif; background:#000;">
 
-  <h3>Booking Details</h3>
-  <p>Event: <strong>{{event}}</strong></p>
-  <p>Date: <strong>{{date}}</strong></p>
-  <p>Seat: <strong>{{seat}}</strong></p>
-  <p>Booking ID: <strong>{{bookingId}}</strong></p>
+    <!-- MAIN CONTAINER -->
+    <div style="
+      max-width:600px; 
+      margin:auto; 
+      padding:25px;
+      border-radius:12px;
+      background-image:url('cid:partybg');
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      border:2px solid #333;
+    ">
 
-  <p>Thank you for booking with us!</p>
-</body>
+      <!-- HEADER -->
+      <h2 style="
+        text-align:center;
+        font-size:32px;
+        margin:0 0 10px 0;
+        font-weight:800;
+        color:#f8f8f8;
+        text-shadow:0 0 10px #ff4dff;
+      ">
+        🎉 Your Party Ticket Is Confirmed!
+      </h2>
+
+      <p style="
+        text-align:center; 
+        color:#e5e5e5; 
+        font-size:15px; 
+        margin-top:8px;
+      ">
+        Hey <strong>{{name}}</strong>, get ready for an unforgettable night!
+      </p>
+
+      <!-- TRANSPARENT CARD -->
+      <div style="
+        background:rgba(0,0,0,0.55);
+        padding:22px;
+        border-radius:18px;
+        margin-top:25px;
+        border:1px solid rgba(255,255,255,0.15);
+        backdrop-filter:blur(6px);
+      ">
+
+        <h3 style="
+          color:#ff4dff;
+          font-size:22px;
+          margin:0 0 12px 0;
+          font-weight:700;
+          text-shadow:0 0 6px #ff4dff;
+        ">
+          ✨ Event Details
+        </h3>
+
+        <p style="color:#e2e2e2; font-size:16px; margin:6px 0;">
+          <strong style="color:#00eaff;">Event:</strong>
+          <span style="color:#ffb8ff;">{{event}}</span>
+        </p>
+
+        <p style="color:#e2e2e2; font-size:16px; margin:6px 0;">
+          <strong style="color:#00eaff;">Date:</strong>
+          <span style="color:#ffb8ff;">{{date}}</span>
+        </p>
+
+        <p style="color:#e2e2e2; font-size:16px; margin:6px 0;">
+          <strong style="color:#00eaff;">Booking ID:</strong>
+          <span style="color:#ffb8ff;">{{bookingId}}</span>
+        </p>
+
+        <p style="
+          color:#ffd6ff; 
+          font-size:17px; 
+          margin-top:18px;
+          text-align:center;
+        ">
+          🔥 Get ready for insane beats, neon vibes & a night to remember!
+        </p>
+
+      </div>
+
+      <!-- FOOTER -->
+      <p style="
+        text-align:center; 
+        color:#ccc; 
+        font-size:13px; 
+        margin-top:25px;
+        text-shadow:0 0 4px #000;
+      ">
+        Thank you for choosing <span style="color:#ffb8ff;">Afteraura</span> 💜  
+        <br>See you on the dance floor!
+      </p>
+
+    </div>
+
+  </body>
 </html>
